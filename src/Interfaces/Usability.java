@@ -4,6 +4,6 @@ package Interfaces;
  *
  * @author nilo-
  */
-public interface Pessoa {
-    
+public interface Usability {
+       
 }
