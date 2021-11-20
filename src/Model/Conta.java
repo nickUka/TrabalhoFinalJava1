@@ -5,7 +5,7 @@ import Interfaces.ContaI;
 /**
  *
  */
-public class Conta implements ContaI{
+public abstract class Conta implements ContaI{
 
     @Override
     public boolean deposita(double valor) {
