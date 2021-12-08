@@ -6,6 +6,22 @@ package Model;
  */
 public class ContaCorrente extends Conta{
     private double limite;
+
+    public ContaCorrente() {
+    }
+
+    public ContaCorrente(double limite, int numero) {
+        super(numero);
+        this.limite = limite;
+    }
+    
+    public double getLimite() {
+        return limite;
+    }
+
+    public void setLimite(double limite) {
+        this.limite = limite;
+    }
     
     @Override
     public boolean saca(double valor){

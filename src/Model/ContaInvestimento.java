@@ -8,6 +8,31 @@ public class ContaInvestimento extends Conta{
     private double depositoMin;
     private double montanteMin;
 
+    public ContaInvestimento() {
+    }
+
+    public ContaInvestimento(double depositoMin, double montanteMin, int numero) {
+        super(numero);
+        this.depositoMin = depositoMin;
+        this.montanteMin = montanteMin;
+    }
+    
+    public double getDepositoMin() {
+        return depositoMin;
+    }
+
+    public void setDepositoMin(double depositoMin) {
+        this.depositoMin = depositoMin;
+    }
+
+    public double getMontanteMin() {
+        return montanteMin;
+    }
+
+    public void setMontanteMin(double montanteMin) {
+        this.montanteMin = montanteMin;
+    }
+    
     @Override
     public boolean saca(double valor) {
        if(getSaldo() >= this.montanteMin)
