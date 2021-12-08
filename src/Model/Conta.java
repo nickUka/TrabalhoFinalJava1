@@ -5,35 +5,56 @@ import Interfaces.ContaI;
 /**
  *
  */
-public class Conta implements ContaI{
+public abstract class Conta implements ContaI{
+    private int numero;
+    private double saldo;
+    private Cliente dono;
 
+    public Conta() {
+    }
+
+    public Conta(int numero) {
+        this.numero = numero;
+        this.saldo = 0;
+    }
+   
     @Override
     public boolean deposita(double valor) {
-        return false;
+        if(valor  < 0.01)
+            return false;
+        
+        this.saldo += valor;
+        return true;
     }
 
     @Override
     public boolean saca(double valor) {
-        return false;
+        if(valor  < 0.01)
+            return false;
+        this.saldo -= valor;
+        return true;
     }
 
+    public void setDono(Cliente dono) {
+        this.dono = dono;
+    }
+    
     @Override
     public Cliente getDono() {     
-        return null;     
+        return this.dono;     
     }
 
     @Override
     public int getNumero() {
-        return 0;
+        return this.numero;
+    }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
     }
 
     @Override
     public double getSaldo() {
-        return 0;
+        return this.saldo;
     }
-
-    @Override
-    public void remunera() {
-    }
-    
 }
