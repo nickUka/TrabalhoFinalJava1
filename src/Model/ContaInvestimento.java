@@ -48,8 +48,7 @@ public class ContaInvestimento extends Conta{
     }
     
     @Override
-    public void remunera() {
-       
+    public void remunera() {       
        super.setSaldo(getSaldo()+(getSaldo()*0.02));
     }
     
