@@ -1,9 +1,12 @@
 package View;
 
+import Controller.Usability;
 import Model.Cliente;
 import Model.Conta;
 import Model.ContaCorrente;
 import Model.ContaInvestimento;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
 
 /*
@@ -18,9 +21,11 @@ import javax.swing.JOptionPane;
 public class Clientes extends javax.swing.JFrame {
     private ClienteTableModel tableCliente = new ClienteTableModel(); 
     private ContasTableModel tableConta = new ContasTableModel();
-    private Cliente clienteSelecionado = null;
+    private Cliente clienteSelecionado;
+    private Conta contaSelecionada;
     private int linhaClicada = -1;
     private int linhaClicadaVinc = -1;
+    private int linhaClicadaContas = -1;
     /**
      * Creates new form NewJFrame
      */
@@ -76,8 +81,26 @@ public class Clientes extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         contasTable = new javax.swing.JTable();
+        jLabel14 = new javax.swing.JLabel();
+        cpfPesqText = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        nrContaLabel = new javax.swing.JLabel();
+        nomeDonoContaText = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        valorText = new javax.swing.JTextField();
+        sacarButton = new javax.swing.JButton();
+        depButton = new javax.swing.JButton();
+        saldoButton = new javax.swing.JButton();
+        remButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jTabbedPane2.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jTabbedPane2StateChanged(evt);
+            }
+        });
 
         cpfText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -372,19 +395,120 @@ public class Clientes extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(contasTable);
 
+        jLabel14.setText("CPF");
+
+        cpfVincText.setEditable(false);
+        cpfPesqText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cpfPesqTextActionPerformed(evt);
+            }
+        });
+        cpfPesqText.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cpfPesqTextKeyPressed(evt);
+            }
+        });
+
+        jLabel8.setText("Nº");
+
+        nomeVincText.setEditable(false);
+
+        jLabel16.setText("Nome");
+
+        jLabel17.setText("Valor");
+
+        valorText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                valorTextActionPerformed(evt);
+            }
+        });
+
+        sacarButton.setText("Sacar");
+        sacarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sacarButtonActionPerformed(evt);
+            }
+        });
+
+        depButton.setText("Depositar");
+        depButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                depButtonActionPerformed(evt);
+            }
+        });
+
+        saldoButton.setText("Ver Saldo");
+        saldoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saldoButtonActionPerformed(evt);
+            }
+        });
+
+        remButton.setText("Remunerar");
+        remButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                remButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4)
-                .addContainerGap())
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 878, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(nomeDonoContaText, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addGap(18, 18, 18)
+                                .addComponent(cpfPesqText, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(nrContaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(16, 16, 16)
+                                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(valorText, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(75, 75, 75)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(sacarButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(saldoButton, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(depButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(remButton, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))
+                        .addGap(41, 41, 41))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(92, Short.MAX_VALUE)
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(cpfPesqText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel17)
+                    .addComponent(valorText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sacarButton)
+                    .addComponent(depButton)
+                    .addComponent(nrContaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(17, 17, 17)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(nomeDonoContaText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(saldoButton)
+                    .addComponent(remButton))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -441,7 +565,7 @@ public class Clientes extends javax.swing.JFrame {
     private void removerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerButtonActionPerformed
         if(linhaClicada != -1){
             
-            int response = JOptionPane.showConfirmDialog(this, "Deseja remover o cliente "+clienteSelecionado.getNome()+" ? Todas as contas referente a esse cliente serão apagadas.");
+            int response = JOptionPane.showConfirmDialog(this, "Deseja remover o cliente "+clienteSelecionado.getNome()+" ?\nTodas as contas referente a esse cliente serão apagadas.");
             if(response == JOptionPane.YES_OPTION){
                 tableCliente.removeCliente(clienteSelecionado);
 
@@ -476,26 +600,33 @@ public class Clientes extends javax.swing.JFrame {
 
     private void VincularButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VincularButtonActionPerformed
         int contaOpc = tipoContaComboBox.getSelectedIndex();
-        int numeroConta = tableConta.getLista().size();
+        int numeroConta = Usability.contas.size()+1;
         Conta c;
         if(linhaClicadaVinc == -1)
             return;
         switch (contaOpc){
             case 1:
                 c = new ContaCorrente(Double.parseDouble(depMinLimText.getText()), numeroConta, clienteSelecionado);
-                c.deposita(Double.parseDouble(depInicText.getText()));
+                if(!c.deposita(Double.parseDouble(depInicText.getText()))){
+                     JOptionPane.showMessageDialog(this, "Não foi possivel vincular cliente a conta");
+                     return;
+                }                    
                 c.getDono().setPossuiConta(true);
                 tableConta.adicionaConta(c);
                 break;
             case 2:
                 c = new ContaInvestimento(Double.parseDouble(depMinLimText.getText()),Double.parseDouble(montMinText.getText()), numeroConta, clienteSelecionado);
-                c.deposita(Double.parseDouble(depInicText.getText()));
+                if(!c.deposita(Double.parseDouble(depInicText.getText()))){
+                     JOptionPane.showMessageDialog(this, "Não foi possivel vincular cliente a conta");
+                     return;
+                } 
                 c.getDono().setPossuiConta(true);
                 tableConta.adicionaConta(c);
                 break;
             default: 
                 contaProps.setVisible(false);
-       };
+       }
+        linhaClicadaVinc = -1;
         limpaFormularioVincular();
     }//GEN-LAST:event_VincularButtonActionPerformed
 
@@ -528,15 +659,81 @@ public class Clientes extends javax.swing.JFrame {
     }//GEN-LAST:event_tipoContaComboBoxActionPerformed
 
     private void contasTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contasTableMouseClicked
-        // TODO add your handling code here:
+        linhaClicadaContas = contasTable.rowAtPoint(evt.getPoint());
+        contaSelecionada = tableConta.getConta(linhaClicadaContas);
+        
+        setFormularioConta(contaSelecionada);
     }//GEN-LAST:event_contasTableMouseClicked
 
+    private void cpfPesqTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpfPesqTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cpfPesqTextActionPerformed
+
+    private void sacarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sacarButtonActionPerformed
+        if(linhaClicadaContas == -1)
+            return;
+        
+        double valor = Double.parseDouble(valorText.getText());
+        if(contaSelecionada.saca(valor))
+            JOptionPane.showMessageDialog(this, "Saque realizado!");
+        else
+            JOptionPane.showMessageDialog(this, "Não foi possivel realizar o saque.");
+    }//GEN-LAST:event_sacarButtonActionPerformed
+
+    private void valorTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valorTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_valorTextActionPerformed
+
+    private void cpfPesqTextKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cpfPesqTextKeyPressed
+       String cpf = cpfPesqText.getText();
+       List<Conta> novaLista = Usability.contas.stream().filter(c -> c.getDono().getCpf().contains(cpf)).collect(Collectors.toList());
+       
+       tableConta.atualizarTabela(novaLista);
+    }//GEN-LAST:event_cpfPesqTextKeyPressed
+
+    private void saldoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saldoButtonActionPerformed
+        if(linhaClicadaContas == -1)
+            return;
+        
+        JOptionPane.showMessageDialog(this, "O Saldo da conta "+contaSelecionada.getNumero()+" é: "+contaSelecionada.getSaldo());
+    }//GEN-LAST:event_saldoButtonActionPerformed
+
+    private void remButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remButtonActionPerformed
+       if(linhaClicadaContas == -1)
+            return;
+        
+        contaSelecionada.remunera();
+        JOptionPane.showMessageDialog(this, "Conta "+contaSelecionada.getNumero()+" remunerada!");
+       
+    }//GEN-LAST:event_remButtonActionPerformed
+
+    private void depButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_depButtonActionPerformed
+        if(linhaClicadaContas == -1)
+            return;
+        
+        double valor = Double.parseDouble(valorText.getText());
+        if(contaSelecionada.deposita(valor))
+            JOptionPane.showMessageDialog(this, "Depósito realizado!");
+        else
+            JOptionPane.showMessageDialog(this, "Não foi possivel realizar o depósito.");
+    }//GEN-LAST:event_depButtonActionPerformed
+
+    private void jTabbedPane2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane2StateChanged
+        limpaFormulario();
+        limpaFormularioVincular();
+        limpaFormularioConta();
+        
+        linhaClicada = -1;
+        linhaClicadaVinc = -1;
+        linhaClicadaContas = -1;
+    }//GEN-LAST:event_jTabbedPane2StateChanged
+
     private void limpaFormulario(){
-        nomeText.setText("");
-        sobrenomeText.setText("");
-        rgText.setText("");
-        cpfText.setText("");
-        endereçoText.setText("");
+        nomeText.setText(null);
+        sobrenomeText.setText(null);
+        rgText.setText(null);
+        cpfText.setText(null);
+        endereçoText.setText(null);
     }
     
     private void setFormulario(Cliente c){
@@ -557,6 +754,9 @@ public class Clientes extends javax.swing.JFrame {
         nomeVincText.setText(null);
         cpfVincText.setText(null);
         rgVincText.setText(null);
+        depInicText.setText(null);
+        depMinLimText.setText(null);
+        montMinText.setText(null);
     }
     
     private boolean todosCamposPreenchidos(){
@@ -565,6 +765,19 @@ public class Clientes extends javax.swing.JFrame {
                 cpfText.getText() == null || cpfText.getText().equals("") ||
                 rgText.getText() == null || rgText.getText().equals("") ||
                 endereçoText.getText() == null || endereçoText.getText().equals(""));
+    }
+    
+    private void setFormularioConta(Conta c) {
+        nomeDonoContaText.setText(c.getDono().getNome()+" "+c.getDono().getSobrenome());
+        nrContaLabel.setText(Integer.toString(c.getNumero()));
+        cpfPesqText.setText(c.getDono().getCpf());
+    }
+    
+    private void limpaFormularioConta() {
+        nomeDonoContaText.setText(null);
+        nrContaLabel.setText(null);
+        cpfPesqText.setText(null);
+        valorText.setText(null);
     }
     
     /**
@@ -613,8 +826,10 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.JTable clienteVincTable;
     private javax.swing.JPanel contaProps;
     private javax.swing.JTable contasTable;
+    private javax.swing.JTextField cpfPesqText;
     private javax.swing.JTextField cpfText;
     private javax.swing.JTextField cpfVincText;
+    private javax.swing.JButton depButton;
     private javax.swing.JTextField depInicText;
     private javax.swing.JTextField depMinLimText;
     private javax.swing.JTextField endereçoText;
@@ -623,12 +838,16 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -638,12 +857,19 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTextField montMinText;
+    private javax.swing.JTextField nomeDonoContaText;
     private javax.swing.JTextField nomeText;
     private javax.swing.JTextField nomeVincText;
+    private javax.swing.JLabel nrContaLabel;
+    private javax.swing.JButton remButton;
     private javax.swing.JButton removerButton;
     private javax.swing.JTextField rgText;
     private javax.swing.JTextField rgVincText;
+    private javax.swing.JButton sacarButton;
+    private javax.swing.JButton saldoButton;
     private javax.swing.JTextField sobrenomeText;
     private javax.swing.JComboBox<String> tipoContaComboBox;
+    private javax.swing.JTextField valorText;
     // End of variables declaration//GEN-END:variables
+
 }

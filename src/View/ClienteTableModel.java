@@ -1,5 +1,6 @@
 package View;
 
+import Controller.Usability;
 import Model.Cliente;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +9,7 @@ import javax.swing.table.AbstractTableModel;
 public class ClienteTableModel extends AbstractTableModel {
     private final String[] colunas=new String[]{"Nome", "Sobrenome","Endereço" ,"CPF","RG", "Possui Conta"};
 
-    private List<Cliente> lista = new ArrayList();
+    private List<Cliente> lista = Usability.clientes;
 
     @Override
     public int getRowCount() {
@@ -81,9 +82,5 @@ public class ClienteTableModel extends AbstractTableModel {
 
     public Cliente getCliente(int linha){
         return lista.get(linha);
-    }
-    
-    public List<Cliente> getLista(){
-        return this.lista;
     }
 }

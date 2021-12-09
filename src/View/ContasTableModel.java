@@ -1,16 +1,18 @@
 package View;
 
+import Controller.Usability;
 import Model.Cliente;
 import Model.Conta;
 import Model.ContaCorrente;
+import Model.ContaInvestimento;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 public class ContasTableModel extends AbstractTableModel {
-    private final String[] colunas=new String[]{"Número","Tipo conta", "Nome", "CPF" ,"Saldo"};
+    private final String[] colunas=new String[]{"Número","Tipo conta", "Nome", "CPF","Depósito minimo", "Montante minimo"};
 
-    private List<Conta> lista = new ArrayList();
+    private List<Conta> lista = Usability.contas;
 
     @Override
     public int getRowCount() {
@@ -38,12 +40,18 @@ public class ContasTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Conta customer = lista.get(rowIndex);
+        ContaInvestimento customerI= null;
+        if(customer instanceof ContaInvestimento){
+             customerI = (ContaInvestimento)customer;
+        }
+            
         switch (columnIndex) {
             case 0: return customer.getNumero();//if column 1 (name)
             case 1: return (customer instanceof ContaCorrente ? "Conta corrente": "Conta investimento");//if column 2 (birthday)
             case 2: return (customer.getDono().getNome()+" "+customer.getDono().getSobrenome());
             case 3: return customer.getDono().getCpf();
-            case 4: return customer.getSaldo();
+            case 4: return (customer instanceof ContaInvestimento ? customerI.getDepositoMin() : "-");
+            case 5: return (customer instanceof ContaInvestimento ? customerI.getMontanteMin(): "-");
             default : return null;
         }
     }
@@ -82,9 +90,5 @@ public class ContasTableModel extends AbstractTableModel {
 
     public Conta getConta(int linha){
         return lista.get(linha);
-    }
-    
-    public List<Conta> getLista(){
-        return this.lista;
     }
 }
