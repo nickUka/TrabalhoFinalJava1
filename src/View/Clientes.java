@@ -5,7 +5,10 @@ import Model.Cliente;
 import Model.Conta;
 import Model.ContaCorrente;
 import Model.ContaInvestimento;
+import java.text.ParseException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
 
@@ -21,15 +24,27 @@ import javax.swing.JOptionPane;
 public class Clientes extends javax.swing.JFrame {
     private ClienteTableModel tableCliente = new ClienteTableModel(); 
     private ContasTableModel tableConta = new ContasTableModel();
+    
     private Cliente clienteSelecionado;
     private Conta contaSelecionada;
+    
     private int linhaClicada = -1;
     private int linhaClicadaVinc = -1;
     private int linhaClicadaContas = -1;
+    
+    private javax.swing.text.MaskFormatter cpfFormatter;
+    private javax.swing.text.MaskFormatter rgFormatter;
+    
     /**
      * Creates new form NewJFrame
      */
     public Clientes() {
+        try {
+            this.cpfFormatter = new javax.swing.text.MaskFormatter("###.###.###-##");
+            this.rgFormatter = new javax.swing.text.MaskFormatter("###.###.##-##");
+        } catch (ParseException ex) {
+            ex.getStackTrace();
+        }
         initComponents();
     }
 
@@ -46,6 +61,7 @@ public class Clientes extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         nomeText = new javax.swing.JTextField();
         cpfText = new javax.swing.JTextField();
+        cpfText = new javax.swing.JFormattedTextField(cpfFormatter);
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -83,6 +99,7 @@ public class Clientes extends javax.swing.JFrame {
         contasTable = new javax.swing.JTable();
         jLabel14 = new javax.swing.JLabel();
         cpfPesqText = new javax.swing.JTextField();
+        cpfPesqText= new javax.swing.JFormattedTextField(cpfFormatter);
         jLabel8 = new javax.swing.JLabel();
         nrContaLabel = new javax.swing.JLabel();
         nomeDonoContaText = new javax.swing.JTextField();
@@ -95,12 +112,6 @@ public class Clientes extends javax.swing.JFrame {
         remButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jTabbedPane2.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jTabbedPane2StateChanged(evt);
-            }
-        });
 
         cpfText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -266,6 +277,13 @@ public class Clientes extends javax.swing.JFrame {
             }
         });
 
+        VincularButton.setText("Vincular");
+        VincularButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VincularButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout contaPropsLayout = new javax.swing.GroupLayout(contaProps);
         contaProps.setLayout(contaPropsLayout);
         contaPropsLayout.setHorizontalGroup(
@@ -274,14 +292,16 @@ public class Clientes extends javax.swing.JFrame {
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(depInicText, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(33, 33, 33)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(depMinLimText, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(montMinText, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(montMinText, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(VincularButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         contaPropsLayout.setVerticalGroup(
             contaPropsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -293,18 +313,12 @@ public class Clientes extends javax.swing.JFrame {
                     .addComponent(jLabel11)
                     .addComponent(depMinLimText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
-                    .addComponent(montMinText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(montMinText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(VincularButton))
                 .addContainerGap())
         );
 
         contaProps.setVisible(false);
-
-        VincularButton.setText("Vincular");
-        VincularButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                VincularButtonActionPerformed(evt);
-            }
-        });
 
         jLabel6.setText("CPF");
 
@@ -332,54 +346,49 @@ public class Clientes extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tipoContaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(contaProps, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(VincularButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(nomeVincText, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cpfVincText, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rgVincText, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel9)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(tipoContaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(contaProps, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel5)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(nomeVincText, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(26, 26, 26)
+                            .addComponent(jLabel6)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(cpfVincText, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(rgVincText, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(0, 0, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(nomeVincText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel6)
+                        .addComponent(cpfVincText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel13)
+                        .addComponent(rgVincText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(VincularButton))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(16, 16, 16)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(nomeVincText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel6)
-                                .addComponent(cpfVincText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel13)
-                                .addComponent(rgVincText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(16, 16, 16)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(tipoContaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel9)))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(7, 7, 7)
-                                .addComponent(contaProps, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(tipoContaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addComponent(contaProps, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -604,30 +613,36 @@ public class Clientes extends javax.swing.JFrame {
         Conta c;
         if(linhaClicadaVinc == -1)
             return;
-        switch (contaOpc){
-            case 1:
-                c = new ContaCorrente(Double.parseDouble(depMinLimText.getText()), numeroConta, clienteSelecionado);
-                if(!c.deposita(Double.parseDouble(depInicText.getText()))){
-                     JOptionPane.showMessageDialog(this, "Não foi possivel vincular cliente a conta");
-                     return;
-                }                    
-                c.getDono().setPossuiConta(true);
-                tableConta.adicionaConta(c);
-                break;
-            case 2:
-                c = new ContaInvestimento(Double.parseDouble(depMinLimText.getText()),Double.parseDouble(montMinText.getText()), numeroConta, clienteSelecionado);
-                if(!c.deposita(Double.parseDouble(depInicText.getText()))){
-                     JOptionPane.showMessageDialog(this, "Não foi possivel vincular cliente a conta");
-                     return;
-                } 
-                c.getDono().setPossuiConta(true);
-                tableConta.adicionaConta(c);
-                break;
-            default: 
-                contaProps.setVisible(false);
-       }
+        try{
+            switch (contaOpc){
+                case 1:
+                    c = new ContaCorrente(Double.parseDouble(depMinLimText.getText()), numeroConta, clienteSelecionado);
+                    if(!c.deposita(Double.parseDouble(depInicText.getText()))){
+                         JOptionPane.showMessageDialog(this, "Não foi possivel vincular cliente a conta");
+                         return;
+                    }                    
+                    c.getDono().setPossuiConta(true);
+                    tableConta.adicionaConta(c);
+                    break;
+                case 2:
+                    c = new ContaInvestimento(Double.parseDouble(depMinLimText.getText()),Double.parseDouble(montMinText.getText()), numeroConta, clienteSelecionado);
+                    if(!c.deposita(Double.parseDouble(depInicText.getText()))){
+                         JOptionPane.showMessageDialog(this, "Não foi possivel vincular cliente a conta");
+                         return;
+                    } 
+                    c.getDono().setPossuiConta(true);
+                    tableConta.adicionaConta(c);
+                    break;
+                default: 
+                    contaProps.setVisible(false);
+            }
         linhaClicadaVinc = -1;
         limpaFormularioVincular();
+        }
+        catch(Exception e){
+             JOptionPane.showMessageDialog(this, "Não foi possivel vincular cliente a conta");
+        }
+        
     }//GEN-LAST:event_VincularButtonActionPerformed
 
     private void cpfVincTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpfVincTextActionPerformed
@@ -717,16 +732,6 @@ public class Clientes extends javax.swing.JFrame {
         else
             JOptionPane.showMessageDialog(this, "Não foi possivel realizar o depósito.");
     }//GEN-LAST:event_depButtonActionPerformed
-
-    private void jTabbedPane2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane2StateChanged
-        limpaFormulario();
-        limpaFormularioVincular();
-        limpaFormularioConta();
-        
-        linhaClicada = -1;
-        linhaClicadaVinc = -1;
-        linhaClicadaContas = -1;
-    }//GEN-LAST:event_jTabbedPane2StateChanged
 
     private void limpaFormulario(){
         nomeText.setText(null);
