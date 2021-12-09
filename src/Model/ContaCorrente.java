@@ -10,8 +10,8 @@ public class ContaCorrente extends Conta{
     public ContaCorrente() {
     }
 
-    public ContaCorrente(double limite, int numero) {
-        super(numero);
+    public ContaCorrente(double limite, int numero, Cliente dono) {
+        super(numero, dono);
         this.limite = limite;
     }
     

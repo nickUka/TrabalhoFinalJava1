@@ -8,6 +8,7 @@ public class Cliente implements Comparable{
     private String rg;
     private String cpf;
     private String endereço;
+    private boolean possuiConta = false;
 
     public Cliente(String nome, String sobrenome, String rg, String cpf, String endereço) {
         this.nome = nome;
@@ -56,7 +57,14 @@ public class Cliente implements Comparable{
     public void setEndereço(String endereço) {
         this.endereço = endereço;
     }
-    
+
+    public boolean isPossuiConta() {
+        return possuiConta;
+    }
+
+    public void setPossuiConta(boolean possuiConta) {
+        this.possuiConta = possuiConta;
+    }
     
     @Override
     public int compareTo(Object o) {
