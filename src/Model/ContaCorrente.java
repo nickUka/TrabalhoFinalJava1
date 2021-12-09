@@ -32,7 +32,7 @@ public class ContaCorrente extends Conta{
     
     @Override
     public void remunera() {
-       super.setSaldo((0.01*getSaldo()));
+       super.setSaldo(getSaldo()+(0.01*getSaldo()));
     }
     
 }

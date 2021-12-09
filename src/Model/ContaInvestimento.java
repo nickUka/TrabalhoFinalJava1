@@ -35,7 +35,7 @@ public class ContaInvestimento extends Conta{
     
     @Override
     public boolean saca(double valor) {
-       if(getSaldo() >= this.montanteMin)
+       if((getSaldo()-valor) >= this.montanteMin)
            return(super.saca(valor));
        return false;
     }    
@@ -49,7 +49,8 @@ public class ContaInvestimento extends Conta{
     
     @Override
     public void remunera() {
-       super.setSaldo((getSaldo()*0.02));
+       
+       super.setSaldo(getSaldo()+(getSaldo()*0.02));
     }
     
     
