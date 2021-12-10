@@ -34,6 +34,7 @@ public class Clientes extends javax.swing.JFrame {
      * Creates new form NewJFrame
      */
     public Clientes() {
+         initComponents();
     }
 
     /**
@@ -105,12 +106,6 @@ public class Clientes extends javax.swing.JFrame {
             }
         });
 
-        cpfText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cpfTextActionPerformed(evt);
-            }
-        });
-
         jLabel1.setText("CPF");
 
         jLabel2.setText("RG");
@@ -118,12 +113,6 @@ public class Clientes extends javax.swing.JFrame {
         jLabel3.setText("Nome");
 
         jLabel4.setText("Endereço");
-
-        endereçoText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                endereçoTextActionPerformed(evt);
-            }
-        });
 
         cadastrarButton.setText("Cadastrar");
         cadastrarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -140,18 +129,6 @@ public class Clientes extends javax.swing.JFrame {
         });
 
         jLabel7.setText("Sobrenome");
-
-        sobrenomeText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sobrenomeTextActionPerformed(evt);
-            }
-        });
-
-        rgText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rgTextActionPerformed(evt);
-            }
-        });
 
         clienteTable.setModel(tableCliente);
         clienteTable.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -220,15 +197,15 @@ public class Clientes extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(rgText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(endereçoText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cadastrarButton)
                             .addComponent(atualizartButton)
                             .addComponent(removerButton))
-                        .addGap(1, 1, 1)))
+                        .addGap(1, 1, 1))
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -262,12 +239,6 @@ public class Clientes extends javax.swing.JFrame {
         jLabel11.setText("Depósito minimo");
 
         jLabel12.setText("Montante minimo");
-
-        montMinText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                montMinTextActionPerformed(evt);
-            }
-        });
 
         VincularButton.setText("Vincular");
         VincularButton.addActionListener(new java.awt.event.ActionListener() {
@@ -315,20 +286,10 @@ public class Clientes extends javax.swing.JFrame {
         jLabel6.setText("CPF");
 
         cpfVincText.setEditable(false);
-        cpfVincText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cpfVincTextActionPerformed(evt);
-            }
-        });
 
         jLabel13.setText("RG");
 
         rgVincText.setEditable(false);
-        rgVincText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rgVincTextActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -338,40 +299,40 @@ public class Clientes extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel9)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(tipoContaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(contaProps, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel5)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(nomeVincText, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(26, 26, 26)
-                            .addComponent(jLabel6)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(cpfVincText, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(rgVincText, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tipoContaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(contaProps, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(nomeVincText, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cpfVincText, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rgVincText, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(nomeVincText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel6)
                         .addComponent(cpfVincText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel13)
-                        .addComponent(rgVincText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(rgVincText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5)
+                        .addComponent(nomeVincText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
@@ -398,14 +359,9 @@ public class Clientes extends javax.swing.JFrame {
 
         jLabel14.setText("CPF");
 
-        cpfPesqText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cpfPesqTextActionPerformed(evt);
-            }
-        });
         cpfPesqText.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                cpfPesqTextKeyPressed(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cpfPesqTextKeyReleased(evt);
             }
         });
 
@@ -493,15 +449,16 @@ public class Clientes extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(cpfPesqText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel17)
-                    .addComponent(valorText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(sacarButton)
-                    .addComponent(depButton)
-                    .addComponent(nrContaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(nrContaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel14)
+                        .addComponent(cpfPesqText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel8)
+                        .addComponent(jLabel17)
+                        .addComponent(valorText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(sacarButton)
+                        .addComponent(depButton)))
                 .addGap(17, 17, 17)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
@@ -529,14 +486,6 @@ public class Clientes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cpfTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpfTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cpfTextActionPerformed
-
-    private void rgTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rgTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rgTextActionPerformed
-
     private void cadastrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarButtonActionPerformed
         if(todosCamposPreenchidos()){
             Cliente c = new Cliente(nomeText.getText(), sobrenomeText.getText(), rgText.getText(), cpfText.getText(), endereçoText.getText());
@@ -547,10 +496,6 @@ public class Clientes extends javax.swing.JFrame {
             limpaFormulario();
         }
     }//GEN-LAST:event_cadastrarButtonActionPerformed
-
-    private void sobrenomeTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sobrenomeTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_sobrenomeTextActionPerformed
 
     private void atualizartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizartButtonActionPerformed
         if(linhaClicada != -1){
@@ -582,10 +527,6 @@ public class Clientes extends javax.swing.JFrame {
         setFormulario(clienteSelecionado);
     }//GEN-LAST:event_clienteTableMouseClicked
 
-    private void endereçoTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endereçoTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_endereçoTextActionPerformed
-
     private void clienteVincTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clienteVincTableMouseClicked
         linhaClicadaVinc = clienteVincTable.rowAtPoint(evt.getPoint());
         clienteSelecionado = tableCliente.getCliente(linhaClicadaVinc);
@@ -593,10 +534,6 @@ public class Clientes extends javax.swing.JFrame {
         if(!clienteSelecionado.isPossuiConta())
             setFormularioVincular(clienteSelecionado);
     }//GEN-LAST:event_clienteVincTableMouseClicked
-
-    private void montMinTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_montMinTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_montMinTextActionPerformed
 
     private void VincularButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VincularButtonActionPerformed
         int contaOpc = tipoContaComboBox.getSelectedIndex();
@@ -636,14 +573,6 @@ public class Clientes extends javax.swing.JFrame {
         
     }//GEN-LAST:event_VincularButtonActionPerformed
 
-    private void cpfVincTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpfVincTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cpfVincTextActionPerformed
-
-    private void rgVincTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rgVincTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rgVincTextActionPerformed
-
     private void tipoContaComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoContaComboBoxActionPerformed
        int contaOpc = tipoContaComboBox.getSelectedIndex();
        switch (contaOpc){
@@ -671,10 +600,6 @@ public class Clientes extends javax.swing.JFrame {
         setFormularioConta(contaSelecionada);
     }//GEN-LAST:event_contasTableMouseClicked
 
-    private void cpfPesqTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpfPesqTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cpfPesqTextActionPerformed
-
     private void sacarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sacarButtonActionPerformed
         if(linhaClicadaContas == -1)
             return;
@@ -689,13 +614,6 @@ public class Clientes extends javax.swing.JFrame {
     private void valorTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valorTextActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_valorTextActionPerformed
-
-    private void cpfPesqTextKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cpfPesqTextKeyPressed
-       String cpf = cpfPesqText.getText();
-       List<Conta> novaLista = Usability.contas.stream().filter(c -> c.getDono().getCpf().contains(cpf)).collect(Collectors.toList());
-       
-       tableConta.atualizarTabela(novaLista);
-    }//GEN-LAST:event_cpfPesqTextKeyPressed
 
     private void saldoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saldoButtonActionPerformed
         if(linhaClicadaContas == -1)
@@ -733,6 +651,13 @@ public class Clientes extends javax.swing.JFrame {
         linhaClicadaContas  = -1;
         linhaClicadaVinc = -1;
     }//GEN-LAST:event_jTabbedPane2StateChanged
+
+    private void cpfPesqTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cpfPesqTextKeyReleased
+        String cpf = cpfPesqText.getText();
+        List<Conta> novaLista = Usability.contas.stream().filter(c -> c.getDono().getCpf().contains(cpf)).collect(Collectors.toList());
+
+        tableConta.atualizarTabela(novaLista);
+    }//GEN-LAST:event_cpfPesqTextKeyReleased
 
     private void limpaFormulario(){
         nomeText.setText(null);
