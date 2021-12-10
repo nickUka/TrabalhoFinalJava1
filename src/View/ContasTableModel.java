@@ -5,12 +5,8 @@ import Model.Cliente;
 import Model.Conta;
 import Model.ContaCorrente;
 import Model.ContaInvestimento;
-import static com.sun.tools.attach.VirtualMachine.list;
-import static java.nio.file.Files.list;
 import java.util.ArrayList;
-import static java.util.Collections.list;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import javax.swing.table.AbstractTableModel;
 

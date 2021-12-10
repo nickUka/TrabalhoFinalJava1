@@ -37,12 +37,11 @@ public class Clientes extends javax.swing.JFrame {
      * Creates new form NewJFrame
      */
     public Clientes() {
-         initComponents();
+        initComponents();
         sacarButton.setVisible(false);
         remButton.setVisible(false);
         depButton.setVisible(false);
-        saldoButton.setVisible(false);
-      
+        saldoButton.setVisible(false);      
     }
 
     /**
@@ -547,7 +546,7 @@ public class Clientes extends javax.swing.JFrame {
 
     private void clienteVincTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clienteVincTableMouseClicked
         linhaClicadaVinc = clienteVincTable.rowAtPoint(evt.getPoint());
-        linhaClicada = clienteTable.convertRowIndexToModel(linhaClicada);
+        linhaClicadaVinc = clienteVincTable.convertRowIndexToModel(linhaClicadaVinc);
         clienteSelecionado = tableCliente.getCliente(linhaClicadaVinc);
         
         if(!clienteSelecionado.isPossuiConta())
