@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -106,6 +107,12 @@ public class Clientes extends javax.swing.JFrame {
             }
         });
 
+        cpfText.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cpfTextKeyReleased(evt);
+            }
+        });
+
         jLabel1.setText("CPF");
 
         jLabel2.setText("RG");
@@ -129,6 +136,12 @@ public class Clientes extends javax.swing.JFrame {
         });
 
         jLabel7.setText("Sobrenome");
+
+        rgText.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                rgTextKeyReleased(evt);
+            }
+        });
 
         clienteTable.setModel(tableCliente);
         clienteTable.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -373,12 +386,6 @@ public class Clientes extends javax.swing.JFrame {
 
         jLabel17.setText("Valor");
 
-        valorText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                valorTextActionPerformed(evt);
-            }
-        });
-
         sacarButton.setText("Sacar");
         sacarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -555,7 +562,7 @@ public class Clientes extends javax.swing.JFrame {
                 case 2:
                     c = new ContaInvestimento(Double.parseDouble(depMinLimText.getText()),Double.parseDouble(montMinText.getText()), numeroConta, clienteSelecionado);
                     if(!c.deposita(Double.parseDouble(depInicText.getText()))){
-                         JOptionPane.showMessageDialog(this, "Não foi possivel vincular cliente a conta");
+                         JOptionPane.showMessageDialog(this, "Não foi possivel vincular cliente a conta\nObserve o depósito minimo");
                          return;
                     } 
                     c.getDono().setPossuiConta(true);
@@ -611,10 +618,6 @@ public class Clientes extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Não foi possivel realizar o saque.");
     }//GEN-LAST:event_sacarButtonActionPerformed
 
-    private void valorTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valorTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_valorTextActionPerformed
-
     private void saldoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saldoButtonActionPerformed
         if(linhaClicadaContas == -1)
             return;
@@ -654,10 +657,19 @@ public class Clientes extends javax.swing.JFrame {
 
     private void cpfPesqTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cpfPesqTextKeyReleased
         String cpf = cpfPesqText.getText();
+        maskCampo(cpfPesqText, 11);
         List<Conta> novaLista = Usability.contas.stream().filter(c -> c.getDono().getCpf().contains(cpf)).collect(Collectors.toList());
 
         tableConta.atualizarTabela(novaLista);
     }//GEN-LAST:event_cpfPesqTextKeyReleased
+
+    private void cpfTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cpfTextKeyReleased
+        maskCampo(cpfText, 11);
+    }//GEN-LAST:event_cpfTextKeyReleased
+
+    private void rgTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rgTextKeyReleased
+        maskCampo(rgText, 10);
+    }//GEN-LAST:event_rgTextKeyReleased
 
     private void limpaFormulario(){
         nomeText.setText(null);
@@ -673,6 +685,12 @@ public class Clientes extends javax.swing.JFrame {
         rgText.setText(c.getRg());
         cpfText.setText(c.getCpf());
         endereçoText.setText(c.getEndereço());
+    }
+    
+    private void maskCampo(JTextField field, int max){
+        field.setText(field.getText().replaceAll("[^0-9]", ""));
+        if(field.getText().length()> max)
+            field.setText(field.getText().substring(0,max));
     }
     
     private void setFormularioVincular(Cliente c){
