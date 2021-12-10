@@ -234,6 +234,7 @@ public class Clientes extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("Clientes", jPanel1);
 
+        clienteVincTable.setAutoCreateRowSorter(true);
         clienteVincTable.setModel(tableCliente);
         clienteVincTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -546,6 +547,7 @@ public class Clientes extends javax.swing.JFrame {
 
     private void clienteVincTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clienteVincTableMouseClicked
         linhaClicadaVinc = clienteVincTable.rowAtPoint(evt.getPoint());
+        linhaClicada = clienteTable.convertRowIndexToModel(linhaClicada);
         clienteSelecionado = tableCliente.getCliente(linhaClicadaVinc);
         
         if(!clienteSelecionado.isPossuiConta())
