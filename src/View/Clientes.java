@@ -7,8 +7,6 @@ import Model.ContaCorrente;
 import Model.ContaInvestimento;
 import java.text.ParseException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
 
@@ -32,20 +30,10 @@ public class Clientes extends javax.swing.JFrame {
     private int linhaClicadaVinc = -1;
     private int linhaClicadaContas = -1;
     
-    private javax.swing.text.MaskFormatter cpfFormatter;
-    private javax.swing.text.MaskFormatter rgFormatter;
-    
     /**
      * Creates new form NewJFrame
      */
     public Clientes() {
-        try {
-            this.cpfFormatter = new javax.swing.text.MaskFormatter("###.###.###-##");
-            this.rgFormatter = new javax.swing.text.MaskFormatter("###.###.##-##");
-        } catch (ParseException ex) {
-            ex.getStackTrace();
-        }
-        initComponents();
     }
 
     /**
@@ -61,7 +49,6 @@ public class Clientes extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         nomeText = new javax.swing.JTextField();
         cpfText = new javax.swing.JTextField();
-        cpfText = new javax.swing.JFormattedTextField(cpfFormatter);
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -99,7 +86,6 @@ public class Clientes extends javax.swing.JFrame {
         contasTable = new javax.swing.JTable();
         jLabel14 = new javax.swing.JLabel();
         cpfPesqText = new javax.swing.JTextField();
-        cpfPesqText= new javax.swing.JFormattedTextField(cpfFormatter);
         jLabel8 = new javax.swing.JLabel();
         nrContaLabel = new javax.swing.JLabel();
         nomeDonoContaText = new javax.swing.JTextField();
@@ -112,6 +98,12 @@ public class Clientes extends javax.swing.JFrame {
         remButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jTabbedPane2.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jTabbedPane2StateChanged(evt);
+            }
+        });
 
         cpfText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -406,7 +398,6 @@ public class Clientes extends javax.swing.JFrame {
 
         jLabel14.setText("CPF");
 
-        cpfVincText.setEditable(false);
         cpfPesqText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cpfPesqTextActionPerformed(evt);
@@ -732,6 +723,16 @@ public class Clientes extends javax.swing.JFrame {
         else
             JOptionPane.showMessageDialog(this, "Não foi possivel realizar o depósito.");
     }//GEN-LAST:event_depButtonActionPerformed
+
+    private void jTabbedPane2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane2StateChanged
+        limpaFormulario();
+        limpaFormularioConta();
+        limpaFormularioVincular();
+        
+        linhaClicada = -1;
+        linhaClicadaContas  = -1;
+        linhaClicadaVinc = -1;
+    }//GEN-LAST:event_jTabbedPane2StateChanged
 
     private void limpaFormulario(){
         nomeText.setText(null);
