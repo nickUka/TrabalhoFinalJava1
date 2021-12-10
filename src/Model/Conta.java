@@ -4,6 +4,7 @@ import Interfaces.ContaI;
 
 /**
  *
+ * @authors nickolas & albano
  */
 public abstract class Conta implements ContaI{
     private int numero;
