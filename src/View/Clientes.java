@@ -36,6 +36,10 @@ public class Clientes extends javax.swing.JFrame {
      */
     public Clientes() {
          initComponents();
+        sacarButton.setVisible(false);
+        remButton.setVisible(false);
+        depButton.setVisible(false);
+        saldoButton.setVisible(false);
     }
 
     /**
@@ -520,7 +524,8 @@ public class Clientes extends javax.swing.JFrame {
             int response = JOptionPane.showConfirmDialog(this, "Deseja remover o cliente "+clienteSelecionado.getNome()+" ?\nTodas as contas referente a esse cliente serão apagadas.");
             if(response == JOptionPane.YES_OPTION){
                 tableCliente.removeCliente(clienteSelecionado);
-
+                
+                tableConta.removeConta(clienteSelecionado);
                 limpaFormulario();
                 linhaClicada = -1;
             }            
@@ -603,6 +608,11 @@ public class Clientes extends javax.swing.JFrame {
     private void contasTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contasTableMouseClicked
         linhaClicadaContas = contasTable.rowAtPoint(evt.getPoint());
         contaSelecionada = tableConta.getConta(linhaClicadaContas);
+        
+        sacarButton.setVisible(true);
+        remButton.setVisible(true);
+        depButton.setVisible(true);
+        saldoButton.setVisible(true);
         
         setFormularioConta(contaSelecionada);
     }//GEN-LAST:event_contasTableMouseClicked
@@ -727,6 +737,11 @@ public class Clientes extends javax.swing.JFrame {
         nrContaLabel.setText(null);
         cpfPesqText.setText(null);
         valorText.setText(null);
+        
+        sacarButton.setVisible(false);
+        remButton.setVisible(false);
+        depButton.setVisible(false);
+        saldoButton.setVisible(false);
     }
     
     /**
