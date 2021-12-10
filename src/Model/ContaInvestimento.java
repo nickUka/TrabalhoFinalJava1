@@ -2,7 +2,7 @@ package Model;
 
 /**
  *
- * @author nilo-
+ * @authors nickolas & albano
  */
 public class ContaInvestimento extends Conta{
     private double depositoMin;

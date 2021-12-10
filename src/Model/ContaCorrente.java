@@ -2,7 +2,7 @@ package Model;
 
 /**
  *
- * @author nilo-
+ * @authors nickolas & albano
  */
 public class ContaCorrente extends Conta{
     private double limite;
