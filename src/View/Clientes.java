@@ -388,7 +388,7 @@ public class Clientes extends javax.swing.JFrame {
 
         jLabel8.setText("Nº");
 
-        nomeVincText.setEditable(false);
+        nomeDonoContaText.setEditable(false);
 
         jLabel16.setText("Nome");
 
