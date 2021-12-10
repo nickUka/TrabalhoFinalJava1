@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -40,6 +42,7 @@ public class Clientes extends javax.swing.JFrame {
         remButton.setVisible(false);
         depButton.setVisible(false);
         saldoButton.setVisible(false);
+      
     }
 
     /**
@@ -147,6 +150,7 @@ public class Clientes extends javax.swing.JFrame {
             }
         });
 
+        clienteTable.setAutoCreateRowSorter(true);
         clienteTable.setModel(tableCliente);
         clienteTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -534,6 +538,7 @@ public class Clientes extends javax.swing.JFrame {
 
     private void clienteTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clienteTableMouseClicked
         linhaClicada = clienteTable.rowAtPoint(evt.getPoint());
+        linhaClicada = clienteTable.convertRowIndexToModel(linhaClicada);
         clienteSelecionado = tableCliente.getCliente(linhaClicada);
         
         setFormulario(clienteSelecionado);
