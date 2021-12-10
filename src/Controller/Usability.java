@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  *
- * @author albano
+ * @author albano & nickolas
  */
 public class Usability {
    public static List<Conta> contas = new ArrayList();

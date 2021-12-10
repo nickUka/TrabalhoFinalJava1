@@ -4,7 +4,7 @@ import Model.Cliente;
 
 /**
  * 
- * 
+ * @author albano & nickolas
  */
 public interface ContaI {
     public boolean deposita(double valor);
